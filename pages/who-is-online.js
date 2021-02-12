@@ -1,6 +1,6 @@
 import { online } from './api/endpoint';
 import styles from '../styles/Home.module.css';
-import dangerouslySetInnerHTML from 'react-dom';
+
 /**
  * Page shows information fetched from an external API.
  * Information is fetched new at every request.
