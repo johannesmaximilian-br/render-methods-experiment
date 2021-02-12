@@ -14,3 +14,21 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.pulse-color {
+    animation-name: pulseColor;
+    animation-duration: .5s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes pulseColor {
+    0% {
+        color: #000;
+    }
+    50% {
+        color: #c7c7c7;
+    }
+    100% {
+        color: #000;
+    }
+}

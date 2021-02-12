@@ -1,4 +1,4 @@
-import { articles } from './api/endpoint';
+import articles from './api/endpoint';
 import styles from '../styles/Home.module.css'
 /**
  * Page shows articles fetched from an external API.
@@ -35,7 +35,7 @@ export default WhatsOn;
 
 // Static props are fetched during the build, and therefore page can be served statically.
 export const getStaticProps = async () => {
-    const news = await articles();
+    const news = await articles('articles');
 
     return {
         props: {

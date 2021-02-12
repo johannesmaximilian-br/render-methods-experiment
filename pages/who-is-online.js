@@ -1,4 +1,4 @@
-import { online } from './api/endpoint';
+import online from './api/endpoint';
 import styles from '../styles/Home.module.css';
 
 /**
@@ -36,7 +36,7 @@ export default WhoIsOnline;
 
 // Server Side Props are fetched on every request.
 export const getServerSideProps = async () => {
-    const persons = await online();
+    const persons = await online('online');
 
     return {
         props: {

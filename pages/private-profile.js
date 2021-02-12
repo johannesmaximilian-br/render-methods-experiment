@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import profile from './api/endpoint'
 import styles from '../styles/Home.module.css'
 
 /**
@@ -9,13 +10,9 @@ const PrivateProfile = () => {
     const url = 'http://localhost:9000/profile';
     const [data, setData] = useState(null);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const result = await fetch(url);
-            const data = await result.json()
-            setData(data);
-        }
-        fetchData();
+    useEffect(async () => {
+        const data = await profile('profile');
+        setData(data);
     }, []);
     
     return (
@@ -32,7 +29,7 @@ const PrivateProfile = () => {
                         <p>{info.street}<br/>{info.city}</p>
                         <p dangerouslySetInnerHTML={{__html: info.secret}} className={styles.code}></p>
                     </div>
-                )) : <div>loading...</div> }
+                )) : <div className={'pulse-color'}>loading...</div> }
                 </div>
             </main>
 
