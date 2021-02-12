@@ -1,34 +1,38 @@
+# Render Methods Experiment (SSR, SSG, CSR (data-wise))
+Purpose of this is to play around with different rendering methods of a next.js app.
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
-First, run the development server:
+First run `yarn install` to get all dependencies.
+During development every request will be fetched new from the resources. The benefits will only be visible in production mode.
+To run the project use following commands for different purposes:
 
-```bash
-npm run dev
-# or
-yarn dev
+Development: `yarn dev` 
+
+Production: `yarn production`  
+
+Both will start a counterfit api server from `./express` on [http://localhost:9000](http://localhost:9000) that will pretend to have a little latency and the next.js server on [http://localhost:3001](http://localhost:3001).
+
+## Exploring render methods
+### SSG - The "What's on" page
+This page will be generated during build time, so the page can be served statically. This is possible due to the `getStaticProps` function of next.js
+But we can use a stale-while-revalidate-ish configuration to set a TTL to the page. With that, the page will be stale for the time configured, and is going to be refetched by the first request after that. If this revalidation setting is abscent, the page is only generated to build time.
 ```
+    return {
+        props: {
+            articles: news
+        },
+        revalidate: 15 // Page is stale for 15 seconds and gets refreshed with the next request.
+    }
+```
+__Now if we change the data source in the api and edit the `data.json` we can discover the change on the page after the revalidation period.__
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Besides that, the __"Imprint"__ page is fully static because it hasn't any data dependency to the api.
+### SSR - The "Who's online" page
+This page is regenerated on the server with every request made. This is possible due to the `getServerSideProps` function of next.js.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### CSR (data-wise) - The "My private space" page
+This page is rendered at build time, because of the abscence of `getServerSideProps` or `getInitialProps` next.js treats it as a static page just like the "imprint" page.
+But in this case we are fetching data from client side.

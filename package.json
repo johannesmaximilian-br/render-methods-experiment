@@ -1,15 +1,18 @@
 {
-  "name": "static-app",
+  "name": "render-methods-experiment",
   "version": "0.1.0",
-  "private": true,
   "scripts": {
-    "dev": "next dev",
+    "postinstall": "cd ./express && npm install",
+    "dev": "NODE_OPTIONS='--inspect' yarn api & next dev -p 3001",
     "build": "next build",
-    "start": "next start"
+    "start": "next start -p 3001",
+    "api": "yarn --cwd ./express start",
+    "production": "yarn api & yarn build && yarn start"
   },
   "dependencies": {
     "next": "10.0.6",
     "react": "17.0.1",
-    "react-dom": "17.0.1"
+    "react-dom": "17.0.1",
+    "swr": "^0.4.2"
   }
 }

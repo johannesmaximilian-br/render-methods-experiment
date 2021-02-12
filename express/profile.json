@@ -1,0 +1,8 @@
+[
+    {
+        "name": "Person 1",
+        "street": "Street",
+        "city": "city",
+        "secret": "My Secret &#129323;"
+    }
+]   
