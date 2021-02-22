@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import useSWR from 'swr';
 import profile from './api/endpoint'
 import styles from '../styles/Home.module.css'
 
@@ -7,13 +7,7 @@ import styles from '../styles/Home.module.css'
  */
 const PrivateProfile = () => {
 
-    const url = 'http://localhost:9000/profile';
-    const [data, setData] = useState(null);
-
-    useEffect(async () => {
-        const data = await profile('profile');
-        setData(data);
-    }, []);
+    const { data, error } = useSWR('profile', profile);
     
     return (
         <div className={styles.container}>
