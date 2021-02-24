@@ -16,9 +16,6 @@ const Imprint = () => {
                     </div>
                 </div>
             </div>
-            <footer className={styles.footer}>
-                <a href="/">Home</a>
-            </footer>
         </main>
     )
 }

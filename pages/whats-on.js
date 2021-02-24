@@ -1,5 +1,6 @@
+import Link from 'next/link';
 import articles from './api/endpoint';
-import styles from '../styles/Home.module.css'
+import styles from '../styles/Home.module.css';
 /**
  * Page shows articles fetched from an external API.
  * This page is rendered at build time and API data is used while building.
@@ -16,17 +17,15 @@ const WhatsOn = ({ articles }) => {
 
                 <div className={styles.grid}>
                     {articles.map((article, key) => (
-                        <div key={key} className={styles.card}>
-                            <h3>{article.title}</h3>
-                            <p>{article.content}</p>
-                        </div>
-                    ))} 
+                        <Link key={key} href={`/articles/${key + 1}`}>
+                            <a className={styles.card}>
+                                <h3>{article.title}</h3>
+                                <p>{article.content}</p>
+                            </a>
+                        </Link>
+                    ))}
                 </div>
             </main>
-
-            <footer className={styles.footer}>
-                <a href="/">Home</a>
-            </footer>
         </div>
     )
 }

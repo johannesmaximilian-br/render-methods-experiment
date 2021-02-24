@@ -24,10 +24,6 @@ const WhoIsOnline = ({ persons }) => {
                     ))} 
                 </div>
             </main>
-
-            <footer className={styles.footer}>
-                <a href="/">Home</a>
-            </footer>
         </div>
     )
 }

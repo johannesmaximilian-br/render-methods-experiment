@@ -1,7 +1,19 @@
-import '../styles/globals.css'
+import Head from 'next/head';
+import Footer from '../components/Footer';
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+import '../styles/globals.css';
+
+const MyApp = ({ Component, pageProps }) => {
+    return (
+        <>
+            <Head>
+                <title>Sample Pages for Data Fetching</title>
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <Component {...pageProps} />
+            <Footer />
+        </>
+    )
 }
 
-export default MyApp
+export default MyApp;
